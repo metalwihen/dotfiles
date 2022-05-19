@@ -4,11 +4,12 @@ This is a compilation of my dot files.
 
 ### Setup
 
-Symlink Commands:
+Install oh-my-zsh: https://ohmyz.sh/
+
+Clone this project, then run the following Symlink Commands:
 ```
 # ZSH
 ln -nfs ~/Developer/dotfiles/zsh/.zshrc ~/.zshrc
-ln -nfs ~/Developer/dotfiles/zsh/.oh-my-zsh ~/.oh-my-zsh
 ln -nfs ~/Developer/dotfiles/zsh/.zshrc_local_linux ~/.zshrc_local_linux
 ln -nfs ~/Developer/dotfiles/zsh/mewi-custom.zsh-theme ~/.oh-my-zsh/custom/themes/mewi-custom.zsh-theme
 
