@@ -67,8 +67,6 @@ Plug 'tpope/vim-fugitive'
 " switch to header/cc files
 Plug 'https://github.com/vim-scripts/a.vim'
 " autocompelte
-Plug 'Valloric/YouCompleteMe'
-" +/- leftside for git
 Plug 'mhinz/vim-signify'
 " kotlin highlighting
 Plug 'udalov/kotlin-vim'
@@ -115,7 +113,11 @@ vmap U <C-r>
 nnoremap <leader>w <C-w>
 nnoremap <leader>d :NERDTreeToggle<CR>
 nnoremap <leader>dd :NERDTreeFind<CR>
+nnoremap <leader>g :GFiles?<CR>
 nnoremap <leader>f :Files<CR>
+nnoremap <leader>fg :GFiles<CR>
+nnoremap <leader>ff :Rg!
+nnoremap <leader>fb :Buffers<CR>
 
 " plugin settings
 let g:NERDSpaceDelims=1
