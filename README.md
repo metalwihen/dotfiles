@@ -8,8 +8,9 @@ Install oh-my-zsh: https://ohmyz.sh/
 
 Clone this project, then run the following Symlink Commands:
 ```
-# ZSH
 export DOTFILE_HOME=~/Developer/setup/dotfiles/
+
+# ZSH
 ln -nfs $DOTFILE_HOME/.zshrc ~/.zshrc
 ln -nfs $DOTFILE_HOME/sh/.zshrc_local_linux ~/.zshrc_local_linux
 ln -nfs $DOTFILE_HOME/sh/mewi-custom.zsh-theme ~/.oh-my-zsh/custom/themes/mewi-custom.zsh-theme
