@@ -1,54 +1,19 @@
-" If you want to make a PR, put your changes in here. If you want your changes to
-" stay local, put them in ~/.vimrc.local.
-
 " don't bother with vi compatibility
 set nocompatible
-
-" custom shortcuts
-" custom/Home End PgUp PgDn
-vmap H ^
-vmap L $
-vmap K <C-u>
-vmap J <C-d>
-nmap H ^
-nmap L $
-nmap K <C-u>
-nmap J <C-d>
-
-" custom/select all
-vmap <C-a> ggVG
-nmap <C-a> ggVG
-
-" custom/copy-paste
-vmap <C-c> y
-vmap <C-v> p
-
-" custom/redo
-nmap U <C-r>
-vmap U <C-r>
 
 " overide/Delete without copy (use x for cut)
 nnoremap d "_d
 
+" Don't copy the contents of an overwritten selection.
+vnoremap p "_dP
+
+" turn off error beep/flash
+set visualbell t_vb=
+" turn off visual bell
+set novisualbell
+
 " enable syntax highlighting
 syntax enable
-
-" Vundle
-filetype on " without this vim emits a zero exit status, later, because of :ft off
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" install Vundle bundles
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-  source ~/.vimrc.bundles.local
-endif
-
-call vundle#end()
-
-" ensure ftdetect et al work by including this after the Vundle stuff
-filetype plugin indent on
 
 set autoindent
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
@@ -78,91 +43,97 @@ set wildmode=longest,list,full
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
 
+" ---- FIRST TIME INSTALL ---"
+
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" ---- PLUGINS ---- 
+call plug#begin('~/.vim/plugged')
+" file directory
+Plug 'preservim/nerdtree'
+" more syntax highlighting
+Plug 'bfrg/vim-cpp-modern'
+" fuzzy search
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+" Preview pane 
+Plug 'chengzeyi/fzf-preview.vim'
+" git wrapper
+Plug 'tpope/vim-fugitive'
+" switch to header/cc files
+Plug 'https://github.com/vim-scripts/a.vim'
+" autocompelte
+Plug 'Valloric/YouCompleteMe'
+" +/- leftside for git
+Plug 'mhinz/vim-signify'
+" kotlin highlighting
+Plug 'udalov/kotlin-vim'
+" swift syntax
+Plug 'keith/swift.vim'
+" djinni syntax
+Plug 'r0mai/vim-djinni'
+call plug#end()
+
+" ---- KEY MAPPING ----
+
 " custom/keyboard shortcuts (active usage)
 let mapleader = ';'
-nnoremap <leader>w <C-w>
+
+" custom/Home End PgUp PgDn
+vmap H ^
+vmap L $
+vmap K <C-u>
+vmap J <C-d>
+nmap H ^
+nmap L $
+nmap K <C-u>
+nmap J <C-d>
+
+" custom/Window navigation
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
+nmap <C-k> <C-w>k
+nmap <C-j> <C-j>j
+
+" custom/select all
+vmap <C-a> ggVG
+nmap <C-a> ggVG
+
+" custom/copy-paste
+vmap <C-c> y
+vmap <C-v> p
+
+" custom/redo
+nmap U <C-r>
+vmap U <C-r>
 
 " custom/keyboard shortcuts (active plugins used)
+nnoremap <leader>w <C-w>
 nnoremap <leader>d :NERDTreeToggle<CR>
 nnoremap <leader>dd :NERDTreeFind<CR>
-nnoremap <leader>f :CtrlP<CR>
-
-" keyboard shortcuts
-noremap <leader>l :Align
-nnoremap <leader>a :Ag<space>
-nnoremap <leader>b :CtrlPBuffer<CR>
-nnoremap <leader>T :CtrlPClearCache<CR>:CtrlP<CR>
-nnoremap <leader>] :TagbarToggle<CR>
-nnoremap <leader><space> :call whitespace#strip_trailing()<CR>
-nnoremap <leader>g :GitGutterToggle<CR>
-noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-set pastetoggle=<leader>z
-
-" in case you forgot to sudo
-cnoremap w!! %!sudo tee > /dev/null %
+nnoremap <leader>f :Files<CR>
 
 " plugin settings
-let g:ctrlp_match_window = 'order:ttb,max:20'
 let g:NERDSpaceDelims=1
 let g:NERDTreeShowHidden=1
-let g:gitgutter_enabled = 0
 
-" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
+" ---- SYNTAX ---- 
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
-
-" fdoc is yaml
-autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
-" md is markdown
-autocmd BufRead,BufNewFile *.md set filetype=markdown
-autocmd BufRead,BufNewFile *.md set spell
-" extra rails.vim help
-autocmd User Rails silent! Rnavcommand decorator      app/decorators            -glob=**/* -suffix=_decorator.rb
-autocmd User Rails silent! Rnavcommand observer       app/observers             -glob=**/* -suffix=_observer.rb
-autocmd User Rails silent! Rnavcommand feature        features                  -glob=**/* -suffix=.feature
-autocmd User Rails silent! Rnavcommand job            app/jobs                  -glob=**/* -suffix=_job.rb
-autocmd User Rails silent! Rnavcommand mediator       app/mediators             -glob=**/* -suffix=_mediator.rb
-autocmd User Rails silent! Rnavcommand stepdefinition features/step_definitions -glob=**/* -suffix=_steps.rb
-" automatically rebalance windows on vim resize
-autocmd VimResized * :wincmd =
-
-" Don't copy the contents of an overwritten selection.
-vnoremap p "_dP
-
-" syntactic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_loc_list_height = 5
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_error_symbol = '❌'
-let g:syntastic_style_error_symbol = '⁉️'
-let g:syntastic_warning_symbol = '⚠️'
-let g:syntastic_style_warning_symbol = '💩'
-highlight link SyntasticErrorSign SignColumn
-highlight link SyntasticWarningSign SignColumn
-highlight link SyntasticStyleErrorSign SignColumn
-highlight link SyntasticStyleWarningSign SignColumn
-
-if filereadable(expand("~/.vimrc.local"))
-  " In your .vimrc.local, you might like:
-  "
-  " set autowrite
-  " set nocursorline
-  " set nowritebackup
-  " set whichwrap+=<,>,h,l,[,] " Wrap arrow keys between lines
-  "
-  " autocmd! bufwritepost .vimrc source ~/.vimrc
-  " noremap! jj <ESC>
-  source ~/.vimrc.local
-endif
-
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+" set markdown filetypes
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+" set cpp filetypes
+autocmd BufNewFile,BufFilePre,BufRead *.cc set filetype=cpp
+" do not create swap file
+autocmd FileType cpp setlocal shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType tex setlocal shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType lcm,proto,djinni setlocal shiftwidth=2 softtabstop=2 tabstop=2
+" Make LCM file syntax highlighting be somewhat bearable
+autocmd BufNewFile,BufRead *.lcm set filetype=cpp
+" set wrap size for just programming files
+autocmd FileType c,cpp,java,py set textwidth=100 " set hard wrap width
+" set format options (default tcq) see http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
 

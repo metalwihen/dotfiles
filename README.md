@@ -9,14 +9,17 @@ Install oh-my-zsh: https://ohmyz.sh/
 Clone this project, then run the following Symlink Commands:
 ```
 # ZSH
-ln -nfs ~/Developer/dotfiles/zsh/.zshrc ~/.zshrc
-ln -nfs ~/Developer/dotfiles/zsh/.zshrc_local_linux ~/.zshrc_local_linux
-ln -nfs ~/Developer/dotfiles/zsh/mewi-custom.zsh-theme ~/.oh-my-zsh/custom/themes/mewi-custom.zsh-theme
+export DOTFILE_HOME=~/Developer/setup/dotfiles/
+ln -nfs $DOTFILE_HOME/.zshrc ~/.zshrc
+ln -nfs $DOTFILE_HOME/sh/.zshrc_local_linux ~/.zshrc_local_linux
+ln -nfs $DOTFILE_HOME/sh/mewi-custom.zsh-theme ~/.oh-my-zsh/custom/themes/mewi-custom.zsh-theme
 
 # Vim
-ln -nfs ~/Developer/dotfiles/vim/.ideavimrc ~/.ideavimrc
-ln -nfs ~/Developer/dotfiles/vim/.vimrc ~/.vimrc
-ln -nfs ~/Developer/dotfiles/vim/.vimrc.bundles ~/.vimrc.bundles
+ln -nfs $DOTFILE_HOME vim/.ideavimrc ~/.ideavimrc
+ln -nfs $DOTFILE_HOME vim/.vimrc ~/.vimrc
+
+# Revup (after adding github token)
+cp $DOTFILE_HOME/revup/.revupconfig ~/.revupconfig 
 ```
 
 ## Key Mapping
@@ -50,7 +53,8 @@ xev # Find out keycode of mouse clicks or keyboard keys
 
 ### MacOs Key Mappings
 
-Use **HammerSpoon** to map keys and perform window management
+- Use Karabiner-Elements: Map CapsLock to dual mode : Esc and Ctrl 
+Ref: https://gist.github.com/tanyuan/55bca522bf50363ae4573d4bdcf06e2e
 
 
 ### Vim Key Mappings
@@ -80,7 +84,11 @@ Modifer + _
 
 **Setup:**
 - Update Vim (Linux: `sudo apt install vim`)
-- Install [Vundle](https://github.com/VundleVim/Vundle.vim) and run `:PluginInstall`
+- Install [Plug](https://github.com/junegunn/vim-plug) and run:
+```
+:PlugInstall
+:PlugClean
+```
 
 **Vim key-binding Plugins:**
 - Vimium for Chrome
@@ -106,6 +114,6 @@ Modifer + _
 - zsh/.oh-my-zsh
 
 **Setup**
-- [Shell](200~https://www.cyberciti.biz/tips/how-do-i-find-out-what-shell-im-using.html)
+- [Shell](https://www.cyberciti.biz/tips/how-do-i-find-out-what-shell-im-using.html)
 - [Install ZSH](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
 - [Install OMZ](https://github.com/ohmyzsh/ohmyzsh)

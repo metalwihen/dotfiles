@@ -1,0 +1,11 @@
+[revup]
+github_oauth = __PASTE__
+main_branch = master
+flag = amend
+
+[upload]
+update_pr_body = false
+
+[amend]
+editor = vi
+
