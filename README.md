@@ -15,8 +15,11 @@ ln -nfs $DOTFILE_HOME/sh/.zshrc_local_linux ~/.zshrc_local_linux
 ln -nfs $DOTFILE_HOME/sh/mewi-custom.zsh-theme ~/.oh-my-zsh/custom/themes/mewi-custom.zsh-theme
 
 # Vim
-ln -nfs $DOTFILE_HOME vim/.ideavimrc ~/.ideavimrc
-ln -nfs $DOTFILE_HOME vim/.vimrc ~/.vimrc
+ln -nfs $DOTFILE_HOME/vim/.ideavimrc ~/.ideavimrc
+ln -nfs $DOTFILE_HOME/vim/.vimrc ~/.vimrc
+
+# TMUX
+ln -nfs $DOTFILE_HOME/tmux/.tmux.conf ~/.tmux.conf
 
 # Revup (after adding github token)
 cp $DOTFILE_HOME/revup/.revupconfig ~/.revupconfig 
