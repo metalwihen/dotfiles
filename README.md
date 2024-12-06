@@ -2,7 +2,7 @@
 
 This is a compilation of my dot files.
 
-### Setup
+## Setup
 
 Install oh-my-zsh: https://ohmyz.sh/
 
@@ -25,6 +25,21 @@ ln -nfs $DOTFILE_HOME/tmux/.tmux.conf ~/.tmux.conf
 # Revup (after adding github token)
 cp $DOTFILE_HOME/revup/.revupconfig ~/.revupconfig 
 ```
+
+### VIM 
+
+**Setup:**
+- Update Vim (Linux: `sudo apt install vim`)
+- Install [Plug](https://github.com/junegunn/vim-plug) and run:
+```
+:PlugInstall
+:PlugClean
+```
+
+**Install**
+- [Install RIPGREP](https://github.com/BurntSushi/ripgrep)
+- [Install ctags](https://github.com/universal-ctags/ctags)
+
 
 ## Key Mapping
 
@@ -86,22 +101,10 @@ Modifer + _
   <leader>j : Jumps
 ```
 
-**Setup:**
-- Update Vim (Linux: `sudo apt install vim`)
-- Install [Plug](https://github.com/junegunn/vim-plug) and run:
-```
-:PlugInstall
-:PlugClean
-```
-
 **Vim key-binding Plugins:**
 - Vimium for Chrome
 - IdeaVim for Jetbrains
 - vim-mode for Atom
-
-**Install**
-- [Install RIPGREP](https://github.com/BurntSushi/ripgrep)
-- [Install ctags](https://github.com/universal-ctags/ctags)
 
 ## Terminal
 
