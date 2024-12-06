@@ -99,6 +99,10 @@ Modifer + _
 - IdeaVim for Jetbrains
 - vim-mode for Atom
 
+**Install**
+- [Install RIPGREP](https://github.com/BurntSushi/ripgrep)
+- [Install ctags](https://github.com/universal-ctags/ctags)
+
 ## Terminal
 
 **Software:**
@@ -118,7 +122,7 @@ Modifer + _
 - zsh/.oh-my-zsh
 
 **Setup**
+
 - [Shell](https://www.cyberciti.biz/tips/how-do-i-find-out-what-shell-im-using.html)
 - [Install ZSH](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
 - [Install OMZ](https://github.com/ohmyzsh/ohmyzsh)
-- [Install RIPGREP](https://github.com/BurntSushi/ripgrep)
